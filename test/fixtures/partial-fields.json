@@ -1,0 +1,29 @@
+{
+  "result": "success",
+  "message": null,
+  "count": 1,
+  "limit": 10,
+  "offset": 0,
+  "emails": [
+    {
+      "cc": "",
+      "date": 1789700968000,
+      "attachments": [],
+      "dkim": "none",
+      "envelope_to": "l33ut.test@inbox.testmail.app",
+      "subject": "l33ut.test@inbox.testmail.app",
+      "SPF": "pass",
+      "oid": "60921-l33ut-cufiYYmMdmSJNFtWL7S6iK",
+      "envelope_from": "pthipayanate@gmail.com",
+      "cc_parsed": [],
+      "namespace": "l33ut",
+      "sender_ip": "please see headers",
+      "to": "l33ut.test@inbox.testmail.app",
+      "tag": "test",
+      "text": "l33ut.test@inbox.testmail.app\n",
+      "timestamp": 1789700982684,
+      "id": "60921-l33ut-cufiYYmMdmSJNFtWL7S6iK",
+      "downloadUrl": "https://object.testmail.app/api/60921-l33ut-cufiYYmMdmSJNFtWL7S6iK.eml"
+    }
+  ]
+}

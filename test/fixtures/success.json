@@ -1,0 +1,27 @@
+{
+  "result": "success",
+  "message": null,
+  "count": 2,
+  "limit": 10,
+  "offset": 0,
+  "emails": [
+    {
+      "from": "sender@example.com",
+      "from_parsed": { "address": "sender@example.com", "name": "Test Sender" },
+      "subject": "Welcome",
+      "text": "Hello there",
+      "html": "<p>Hello there</p>",
+      "timestamp": 1758000000000,
+      "tag": "signup"
+    },
+    {
+      "from": "other@example.com",
+      "from_parsed": { "address": "other@example.com", "name": "Other Sender" },
+      "subject": "Reminder",
+      "text": "Don't forget",
+      "html": "<p>Don't forget</p>",
+      "timestamp": 1758000100000,
+      "tag": "reminder"
+    }
+  ]
+}
