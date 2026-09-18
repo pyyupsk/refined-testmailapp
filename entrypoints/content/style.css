@@ -76,6 +76,10 @@
   min-height: 200px;
 }
 
+.rtm-body[hidden] {
+  display: none;
+}
+
 .rtm-list {
   width: 320px;
   flex-shrink: 0;
