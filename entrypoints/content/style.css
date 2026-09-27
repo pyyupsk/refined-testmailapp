@@ -1,3 +1,8 @@
+.rtm-root,
+.rtm-root * {
+  box-sizing: border-box;
+}
+
 .rtm-root {
   color-scheme: light;
   /* opt out of Chrome/OS auto-dark repainting our explicit colors */
@@ -71,13 +76,30 @@
   color: #b8393c;
 }
 
+/* Our display rules would otherwise outrank the browser's [hidden] default. */
+.rtm-root [hidden] {
+  display: none !important;
+}
+
 .rtm-body {
   display: flex;
   min-height: 200px;
 }
 
-.rtm-body[hidden] {
-  display: none;
+/* Selectors are doubled to outrank the base rules regardless of the order
+   the CSS minifier emits them in. */
+@media (max-width: 720px) {
+  .rtm-body.rtm-body {
+    flex-direction: column;
+  }
+  .rtm-list.rtm-list {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rtm-hair);
+  }
+  .rtm-detail.rtm-detail {
+    padding: 20px 16px 32px;
+  }
 }
 
 .rtm-list {
