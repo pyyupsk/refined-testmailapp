@@ -43,7 +43,7 @@ export default defineContentScript({
         name: 'refined-testmailapp',
         position: 'inline',
         anchor: 'body',
-        onMount: (container) => container.append(renderApp(parsed, raw)),
+        onMount: (container) => container.append(renderApp(parsed, raw, data)),
       });
       ui.mount();
 

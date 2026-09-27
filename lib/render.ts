@@ -1,4 +1,5 @@
 import { buildEmailSrcdoc } from './email-html';
+import { renderJsonView } from './json-view';
 import { fetchMore } from './paginate';
 import type { ParsedResult, TestmailEmail } from './types';
 
@@ -134,7 +135,7 @@ function renderRow(email: TestmailEmail, onSelect: () => void): HTMLElement {
   return row;
 }
 
-export function renderApp(initialParsed: ParsedResult, raw: string): HTMLElement {
+export function renderApp(initialParsed: ParsedResult, raw: string, rawData: unknown): HTMLElement {
   let state = initialParsed;
 
   const root = el('div', { className: 'rtm-root' });
@@ -145,7 +146,8 @@ export function renderApp(initialParsed: ParsedResult, raw: string): HTMLElement
     el('div', { className: 'rtm-header-right' }, [countEl, rawToggle]),
   ]);
   const body = el('div', { className: 'rtm-body' });
-  const rawView = el('pre', { className: 'rtm-raw', textContent: raw, hidden: true });
+  const rawView = renderJsonView(rawData, raw);
+  rawView.hidden = true;
   root.append(header, body, rawView);
 
   rawToggle.addEventListener('click', () => {

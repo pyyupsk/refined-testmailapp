@@ -92,11 +92,13 @@
   .rtm-body.rtm-body {
     flex-direction: column;
   }
+
   .rtm-list.rtm-list {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--rtm-hair);
   }
+
   .rtm-detail.rtm-detail {
     padding: 20px 16px 32px;
   }
@@ -366,11 +368,121 @@
   overflow-x: auto;
 }
 
-.rtm-raw {
-  white-space: pre-wrap;
+.rtm-json {
+  padding: 12px 20px 32px;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.rtm-j-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.rtm-j-tree {
   background: rgba(0, 0, 0, 0.03);
-  padding: 16px 20px;
+  border-radius: 12px;
+  padding: 14px 18px;
   overflow-x: auto;
+}
+
+.rtm-j-block {
+  display: inline;
+}
+
+.rtm-j-summary {
+  display: inline;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.rtm-j-summary::-webkit-details-marker {
+  display: none;
+}
+
+.rtm-j-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 5px;
+  vertical-align: middle;
+  border-left: 5px solid var(--rtm-text-muted);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.12s ease;
+}
+
+.rtm-j-block[open]>.rtm-j-summary>.rtm-j-arrow {
+  transform: rotate(90deg);
+}
+
+.rtm-j-bracket {
+  color: var(--rtm-text);
+  font-weight: 600;
+  background: rgba(0, 113, 227, 0.1);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+.rtm-j-summary:hover .rtm-j-bracket {
+  background: rgba(0, 113, 227, 0.2);
+}
+
+.rtm-j-count {
+  display: none;
+  color: var(--rtm-text-faint);
+  font-style: italic;
+  margin: 0 4px;
+}
+
+.rtm-j-block:not([open])>.rtm-j-summary>.rtm-j-count {
+  display: inline;
+}
+
+/* When open, the summary shows only the opening bracket. */
+.rtm-j-block[open]>.rtm-j-summary>.rtm-j-bracket-close {
+  display: none;
+}
+
+.rtm-j-body {
+  padding-left: 20px;
+  border-left: 1px solid var(--rtm-hair);
+  margin-left: 3px;
+}
+
+.rtm-j-line {
+  white-space: nowrap;
+}
+
+.rtm-j-key {
+  color: #a626a4;
+}
+
+.rtm-j-str {
+  color: #50a14f;
+}
+
+.rtm-j-str a {
+  color: var(--rtm-accent);
+}
+
+.rtm-j-num {
+  color: #986801;
+}
+
+.rtm-j-bool {
+  color: #0184bc;
+}
+
+.rtm-j-null {
+  color: var(--rtm-text-faint);
+}
+
+.rtm-j-punct {
+  color: var(--rtm-text-muted);
 }
 
 .rtm-empty {
