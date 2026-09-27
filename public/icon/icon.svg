@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a86f0"/>
+      <stop offset="1" stop-color="#0064cc"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <!-- Paper plane, our own drawing: a nod to testmail.app's mark, not a copy.
+       Two solid wings with a shadow fold, tilted up-right, sized to stay
+       readable at 16px. -->
+  <g transform="translate(64 64) rotate(-18) translate(-64 -64)">
+    <!-- Upper (near) wing -->
+    <path d="M24 60 L104 34 L62 92 Z" fill="#fff"/>
+    <!-- Lower (far) wing, darker for depth -->
+    <path d="M62 92 L104 34 L70 74 Z" fill="#cfe4ff"/>
+    <!-- Center fold -->
+    <path d="M56 70 L104 34 L62 92 Z" fill="#e6f1ff"/>
+  </g>
+</svg>
