@@ -2,7 +2,7 @@
   "name": "refined-testmailapp",
   "description": "Renders testmail.app raw JSON API responses as a readable inbox UI.",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "build:chrome": "wxt build -b chrome --mv3",
