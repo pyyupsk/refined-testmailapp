@@ -1,73 +1,53 @@
 # Refined testmail.app
 
-A browser extension that turns the raw JSON from the testmail.app API into a readable inbox.
+[![Version](https://img.shields.io/github/package-json/v/pyyupsk/refined-testmailapp?color=a1b858&label=)](https://github.com/pyyupsk/refined-testmailapp/releases)
 
-testmail.app gives you disposable inboxes for end-to-end tests. Its JSON API is free to use, but the visual email viewer needs a Pro plan. This extension renders that same JSON as an inbox in your browser, on the page you already opened. It needs no account, no server, and no configuration.
-
-This project is not affiliated with testmail.app.
-
-## How it works
-
-1. You open a testmail.app API URL in your browser, with your own `apikey` and `namespace` in the query string:
-
-   ```sh
-   https://api.testmail.app/api/json?apikey=YOUR_KEY&namespace=YOUR_NAMESPACE
-   ```
-
-2. The extension reads the JSON on that page and replaces it with an inbox: a list of emails on the left and the selected email on the right.
-
-3. Click "View raw JSON" to switch back to the raw response at any time.
-
-The extension only reads the page it is on. It does not store your API key and it does not send data anywhere.
+Render the [testmail.app](https://testmail.app) JSON API as an inbox, right in your browser. Built with [WXT](https://wxt.dev).
 
 ## Features
 
-- Email list with sender, subject, tag, and time.
-- Email detail with sender, recipient, and a link to download the original `.eml` file.
-- Rendered HTML body inside a sandboxed frame. See Security below.
-- "Load more" for inboxes with more emails than one API page returns.
-- Raw JSON view with syntax highlighting, collapsible objects, clickable links, and a copy button.
+- Email list with sender, subject, tag, and time
+- Email detail with a download link for the original `.eml` file
+- HTML bodies in a sandboxed frame: no scripts, no forms, no remote images
+- "Load more" for inboxes with more than one page
+- Raw JSON view with highlighting, collapsible sections, clickable links, and copy
 
-## Security
+## Usage
 
-Email content is untrusted. Test inboxes can receive anything, including phishing simulations and malicious HTML. The extension renders each email body inside an `<iframe>` with an empty `sandbox` attribute and a strict Content Security Policy. This blocks scripts, form submission, top-level navigation, and all remote resource loads, including tracking pixels and remote images.
-
-We confirmed this behavior in Chrome with a live test email. It contained a script tag, a remote tracking image, a form, a meta refresh, and a `javascript:` link. None of them ran or loaded.
-
-Because remote images are blocked, images in HTML emails show as broken. This is intentional.
-
-## Install
-
-### From a store
-
-Store listings are not published yet.
-
-### From source
-
-You need [Bun](https://bun.sh) and Node.js 22.12 or newer.
+Install the extension, then open a testmail.app API URL with your own key and namespace:
 
 ```sh
-bun install
-bun run build:chrome    # or build:firefox
+https://api.testmail.app/api/json?apikey=YOUR_KEY&namespace=YOUR_NAMESPACE
 ```
 
-Then load the unpacked extension:
+The extension replaces the raw JSON with an inbox. Click "View raw JSON" to see the original response.
 
-- Chrome: open `chrome://extensions`, turn on Developer mode, click "Load unpacked", and select `.output/chrome-mv3`.
-- Firefox: open `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and select any file inside `.output/firefox-mv3`.
+The extension runs only on `api.testmail.app/api/json` pages. It does not store your API key and it sends no data anywhere. See [PRIVACY.md](./PRIVACY.md).
+
+## Install from Source
+
+```bash
+bun install
+bun run build:chrome   # or build:firefox
+```
+
+Load `.output/chrome-mv3` as an unpacked extension in `chrome://extensions`. For Firefox, load any file in `.output/firefox-mv3` as a temporary add-on in `about:debugging`.
 
 ## Development
 
-```sh
-bun run dev             # Chrome with hot reload
-bun run dev:firefox
-bun run test
-bun run typecheck
-bun run zip:chrome      # or zip:firefox, for store upload
+```bash
+bun run dev            # Chrome with hot reload
+bun run test           # not `bun test`, which skips Vitest
+bun run lint
+bun run format
 ```
 
-Run `bun run test`, not `bun test`. The second command runs Bun's own test runner instead of Vitest.
+## Why?
+
+testmail.app is great for end-to-end email tests, but its visual viewer needs a Pro plan. The JSON API works on every plan. This extension gives the JSON API the inbox view it was missing.
+
+This project is not affiliated with testmail.app.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT](./LICENSE) License © 2026 [Pongsakorn Thipayanate](https://github.com/pyyupsk)
