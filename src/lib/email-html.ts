@@ -14,9 +14,5 @@ const EMAIL_CSP = [
 export function buildEmailSrcdoc(html: string): string {
   // This turns off auto-dark repaint. Without it, content rendered as
   // near-black fills.
-  return (
-    `<meta http-equiv="Content-Security-Policy" content="${EMAIL_CSP}">` +
-    '<meta name="color-scheme" content="light">' +
-    html
-  );
+  return `<meta http-equiv="Content-Security-Policy" content="${EMAIL_CSP}"><meta name="color-scheme" content="light">${html}`;
 }

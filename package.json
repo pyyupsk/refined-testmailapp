@@ -1,15 +1,18 @@
 {
   "name": "refined-testmailapp",
-  "description": "Renders testmail.app raw JSON API responses as a readable inbox UI.",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
+  "description": "Renders testmail.app raw JSON API responses as a readable inbox UI.",
   "type": "module",
   "scripts": {
     "build:chrome": "wxt build -b chrome --mv3",
     "build:firefox": "wxt build -b firefox --mv3",
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "lint": "oxlint src tests",
+    "lint:fix": "oxlint src tests --fix",
     "postinstall": "wxt prepare",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -19,6 +22,7 @@
   },
   "devDependencies": {
     "jsdom": "^30.1.1",
+    "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
     "typescript": "^5.9.3",
     "vite": "^8.1.5",

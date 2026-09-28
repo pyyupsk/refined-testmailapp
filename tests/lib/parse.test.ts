@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
+
 import { parseTestmailResponse } from '@/lib/parse';
+
 import emptyFixture from './fixtures/empty.json';
 import failureFixture from './fixtures/failure.json';
 import malformedFixture from './fixtures/malformed.json';
@@ -81,7 +83,13 @@ describe('parseTestmailResponse', () => {
   });
 
   it('hasMore is false when offset + emails reaches count', () => {
-    const r = parseTestmailResponse({ result: 'success', count: 2, limit: 10, offset: 0, emails: [{}, {}] });
+    const r = parseTestmailResponse({
+      result: 'success',
+      count: 2,
+      limit: 10,
+      offset: 0,
+      emails: [{}, {}],
+    });
     expect(r.hasMore).toBe(false);
   });
 
@@ -92,7 +100,13 @@ describe('parseTestmailResponse', () => {
   });
 
   it('ignores non-object entries inside emails', () => {
-    const r = parseTestmailResponse({ result: 'success', count: 1, limit: 1, offset: 0, emails: ['garbage'] });
+    const r = parseTestmailResponse({
+      result: 'success',
+      count: 1,
+      limit: 1,
+      offset: 0,
+      emails: ['garbage'],
+    });
     expect(r.emails).toEqual([{}]);
   });
 });

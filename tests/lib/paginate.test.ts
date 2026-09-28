@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest';
+
 import { mergeMore, nextPageUrl } from '@/lib/paginate';
 import type { ParsedResult } from '@/lib/types';
 
 describe('nextPageUrl', () => {
   it('sets offset and limit while preserving other params', () => {
-    const url = nextPageUrl('https://api.testmail.app/api/json?apikey=x&namespace=y&offset=0&limit=10', 10, 10);
+    const url = nextPageUrl(
+      'https://api.testmail.app/api/json?apikey=x&namespace=y&offset=0&limit=10',
+      10,
+      10,
+    );
     const parsed = new URL(url);
     expect(parsed.searchParams.get('apikey')).toBe('x');
     expect(parsed.searchParams.get('namespace')).toBe('y');
@@ -31,7 +36,15 @@ describe('mergeMore', () => {
   };
 
   it('appends emails and recomputes hasMore from the new count', () => {
-    const more: ParsedResult = { ok: true, message: null, count: 15, limit: 10, offset: 10, emails: [{}], hasMore: false };
+    const more: ParsedResult = {
+      ok: true,
+      message: null,
+      count: 15,
+      limit: 10,
+      offset: 10,
+      emails: [{}],
+      hasMore: false,
+    };
     const merged = mergeMore(base, more);
     expect(merged.emails).toHaveLength(3);
     expect(merged.offset).toBe(0);
@@ -39,7 +52,15 @@ describe('mergeMore', () => {
   });
 
   it('sets hasMore false once every email is loaded', () => {
-    const more: ParsedResult = { ok: true, message: null, count: 3, limit: 10, offset: 10, emails: [{}], hasMore: false };
+    const more: ParsedResult = {
+      ok: true,
+      message: null,
+      count: 3,
+      limit: 10,
+      offset: 10,
+      emails: [{}],
+      hasMore: false,
+    };
     const merged = mergeMore(base, more);
     expect(merged.emails).toHaveLength(3);
     expect(merged.hasMore).toBe(false);

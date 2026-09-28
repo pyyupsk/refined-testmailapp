@@ -1,20 +1,99 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "vitest"],
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "warn"
+  },
   "rules": {
     "no-restricted-imports": [
       "error",
       {
         "patterns": [
           {
-            "message": "Use the @/ alias. Only ./ relative imports are allowed.",
-            "regex": "^\\.\\./"
+            "regex": "^\\.\\./",
+            "message": "Use the @/ alias. Only ./ relative imports are allowed."
           }
         ]
       }
-    ]
+    ],
+    "no-restricted-properties": [
+      "error",
+      {
+        "property": "innerHTML",
+        "message": "Email data is untrusted. Use textContent, or render HTML only in the sandboxed iframe via srcdoc."
+      },
+      {
+        "property": "outerHTML",
+        "message": "Email data is untrusted. Build DOM nodes instead."
+      },
+      {
+        "property": "insertAdjacentHTML",
+        "message": "Email data is untrusted. Build DOM nodes instead."
+      },
+      {
+        "object": "document",
+        "property": "write",
+        "message": "Never write raw HTML into the page."
+      }
+    ],
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "no-script-url": "error",
+    "unicorn/no-document-cookie": "error",
+    "eqeqeq": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-template": "error",
+    "no-console": "error",
+    "no-param-reassign": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "import/no-self-import": "error",
+    "import/first": "error",
+    "unicorn/prefer-query-selector": "error",
+    "unicorn/prefer-dom-node-append": "error",
+    "unicorn/prefer-dom-node-text-content": "error",
+    "unicorn/prefer-modern-dom-apis": "error",
+    "unicorn/prefer-add-event-listener": "error",
+    "unicorn/prefer-string-slice": "error",
+    "unicorn/throw-new-error": "error",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": ["**/*.css"]
+      }
+    ],
+    "promise/no-return-wrap": "error",
+    "promise/prefer-await-to-then": "error"
   },
-  "ignorePatterns": [
-    ".output",
-    ".wxt"
-  ]
+  "overrides": [
+    {
+      "files": ["tests/**/*.ts"],
+      "rules": {
+        "vitest/no-focused-tests": "error",
+        "vitest/no-disabled-tests": "error",
+        "vitest/expect-expect": "error",
+        "vitest/no-identical-title": "error",
+        "vitest/no-conditional-tests": "error",
+        "vitest/consistent-test-it": [
+          "error",
+          {
+            "fn": "it"
+          }
+        ],
+        "vitest/prefer-to-be": "error"
+      }
+    }
+  ],
+  "ignorePatterns": [".output", ".wxt"]
 }

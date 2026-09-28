@@ -73,7 +73,9 @@ function renderDetail(email: TestmailEmail): HTMLElement {
   }
 
   if (typeof email.spam_score === 'number') {
-    container.append(el('div', { className: 'rtm-spam', textContent: `Spam score: ${email.spam_score}` }));
+    container.append(
+      el('div', { className: 'rtm-spam', textContent: `Spam score: ${email.spam_score}` }),
+    );
   }
 
   const frameBody = el('div', { className: 'rtm-frame-body' });
@@ -101,7 +103,9 @@ function renderDetail(email: TestmailEmail): HTMLElement {
       el('summary', { textContent: `Attachments (${attachmentCount}), headers` }),
     ]);
     if (hasHeaders) {
-      details.append(el('pre', { textContent: (email.headers ?? []).map((h) => h.line).join('\n') }));
+      details.append(
+        el('pre', { textContent: (email.headers ?? []).map((h) => h.line).join('\n') }),
+      );
     }
     if (attachmentCount > 0) {
       // ponytail: attachment shape unknown. Dumped generically until seen live.
@@ -123,7 +127,10 @@ function renderRow(email: TestmailEmail, onSelect: () => void): HTMLElement {
         el('span', {
           className: 'rtm-row-time',
           textContent: email.timestamp
-            ? new Date(email.timestamp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+            ? new Date(email.timestamp).toLocaleTimeString([], {
+                hour: 'numeric',
+                minute: '2-digit',
+              })
             : '',
         }),
       ]),
@@ -140,7 +147,11 @@ export function renderApp(initialParsed: ParsedResult, raw: string, rawData: unk
 
   const root = el('div', { className: 'rtm-root' });
   const countEl = el('span', { className: 'rtm-count' });
-  const rawToggle = el('button', { type: 'button', className: 'rtm-btn', textContent: 'View raw JSON' });
+  const rawToggle = el('button', {
+    type: 'button',
+    className: 'rtm-btn',
+    textContent: 'View raw JSON',
+  });
   const header = el('div', { className: 'rtm-header' }, [
     el('div', { className: 'rtm-brand', textContent: 'Refined testmail.app' }),
     el('div', { className: 'rtm-header-right' }, [countEl, rawToggle]),
@@ -158,7 +169,9 @@ export function renderApp(initialParsed: ParsedResult, raw: string, rawData: unk
   });
 
   if (!state.ok) {
-    body.append(el('div', { className: 'rtm-error', textContent: state.message || 'Request failed.' }));
+    body.append(
+      el('div', { className: 'rtm-error', textContent: state.message || 'Request failed.' }),
+    );
     return root;
   }
 
@@ -170,7 +183,9 @@ export function renderApp(initialParsed: ParsedResult, raw: string, rawData: unk
   updateCount();
 
   if (state.count === 0) {
-    body.append(el('div', { className: 'rtm-empty', textContent: 'No emails found for this query.' }));
+    body.append(
+      el('div', { className: 'rtm-empty', textContent: 'No emails found for this query.' }),
+    );
     return root;
   }
 
@@ -185,7 +200,11 @@ export function renderApp(initialParsed: ParsedResult, raw: string, rawData: unk
     detailSlot.replaceChildren(renderDetail(email));
   }
 
-  const loadMoreBtn = el('button', { type: 'button', className: 'rtm-load-more', textContent: 'Load more' });
+  const loadMoreBtn = el('button', {
+    type: 'button',
+    className: 'rtm-load-more',
+    textContent: 'Load more',
+  });
   loadMoreBtn.addEventListener('click', async () => {
     loadMoreBtn.disabled = true;
     loadMoreBtn.textContent = 'Loading…';
@@ -194,7 +213,7 @@ export function renderApp(initialParsed: ParsedResult, raw: string, rawData: unk
       state = await fetchMore(state);
       state.emails.slice(before).forEach((email, i) => {
         const index = before + i;
-        list.insertBefore(renderRow(email, () => selectEmail(index)), loadMoreBtn);
+        loadMoreBtn.before(renderRow(email, () => selectEmail(index)));
       });
       updateCount();
       loadMoreBtn.hidden = !state.hasMore;

@@ -47,7 +47,9 @@ function renderPrimitive(value: unknown, key: string | number | undefined): Node
 
 function renderContainer(value: object, depth: number): Node {
   const isArray = Array.isArray(value);
-  const entries = isArray ? (value as unknown[]).map((v, i) => [i, v] as const) : Object.entries(value);
+  const entries = isArray
+    ? (value as unknown[]).map((v, i) => [i, v] as const)
+    : Object.entries(value);
   const [open, close] = isArray ? ['[', ']'] : ['{', '}'];
 
   if (entries.length === 0) return span('rtm-j-bracket', open + close);
@@ -83,7 +85,11 @@ function renderValue(value: unknown, depth: number, key?: string | number): Node
 }
 
 export function renderJsonView(data: unknown, raw: string): HTMLElement {
-  const copyBtn = el('button', { type: 'button', className: 'rtm-btn rtm-j-copy', textContent: 'Copy JSON' });
+  const copyBtn = el('button', {
+    type: 'button',
+    className: 'rtm-btn rtm-j-copy',
+    textContent: 'Copy JSON',
+  });
   copyBtn.addEventListener('click', async () => {
     await navigator.clipboard.writeText(raw);
     copyBtn.textContent = 'Copied';

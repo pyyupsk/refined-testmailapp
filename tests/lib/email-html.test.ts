@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { buildEmailSrcdoc } from '@/lib/email-html';
 
 describe('buildEmailSrcdoc', () => {
