@@ -832,8 +832,8 @@
   }
 }
 
-.rtm-rawpage {
-  grid-row: 2;
+.rtm-rawwrap {
+  min-height: 0;
   overflow-y: auto;
 }
 

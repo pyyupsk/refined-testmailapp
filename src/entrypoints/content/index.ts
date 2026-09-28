@@ -1,5 +1,5 @@
+import { mountApp } from '@/components/mount';
 import { parseTestmailResponse } from '@/lib/parse';
-import { renderApp } from '@/lib/render';
 
 import './style.css';
 
@@ -44,7 +44,8 @@ export default defineContentScript({
         name: 'refined-testmailapp',
         position: 'inline',
         anchor: 'body',
-        onMount: (container) => container.append(renderApp(parsed, raw, data)),
+        onMount: (container) => mountApp(container, parsed, raw, data),
+        onRemove: (dispose) => dispose?.(),
       });
       ui.mount();
 
