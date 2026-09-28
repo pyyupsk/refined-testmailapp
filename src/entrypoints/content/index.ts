@@ -52,6 +52,15 @@ export default defineContentScript({
       const pre = document.querySelector('pre');
       if (pre) pre.style.display = 'none';
 
+      // Without this, mobile browsers lay the JSON page out at ~980px and the
+      // stacked layout never applies.
+      if (!document.querySelector('meta[name="viewport"]')) {
+        const viewport = document.createElement('meta');
+        viewport.name = 'viewport';
+        viewport.content = 'width=device-width, initial-scale=1';
+        document.head.append(viewport);
+      }
+
       // The native page can keep a dark background under our content, so we
       // reset it here.
       document.documentElement.style.colorScheme = 'light';
