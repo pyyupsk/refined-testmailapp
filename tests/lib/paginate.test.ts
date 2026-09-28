@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { mergeMore, nextPageUrl } from './paginate';
-import type { ParsedResult } from './types';
+import { mergeMore, nextPageUrl } from '../../src/lib/paginate';
+import type { ParsedResult } from '../../src/lib/types';
 
 describe('nextPageUrl', () => {
   it('sets offset and limit while preserving other params', () => {

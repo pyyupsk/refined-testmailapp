@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
-import { renderJsonView } from './json-view';
+import { renderJsonView } from '../../src/lib/json-view';
 
 function links(data: unknown): string[] {
   const root = renderJsonView(data, JSON.stringify(data));

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { parseTestmailResponse } from './parse';
-import emptyFixture from '../test/fixtures/empty.json';
-import failureFixture from '../test/fixtures/failure.json';
-import malformedFixture from '../test/fixtures/malformed.json';
-import partialFieldsFixture from '../test/fixtures/partial-fields.json';
-import successFixture from '../test/fixtures/success.json';
+import { parseTestmailResponse } from '../../src/lib/parse';
+import emptyFixture from '../fixtures/empty.json';
+import failureFixture from '../fixtures/failure.json';
+import malformedFixture from '../fixtures/malformed.json';
+import partialFieldsFixture from '../fixtures/partial-fields.json';
+import successFixture from '../fixtures/success.json';
 
 describe('parseTestmailResponse against sanitized fixtures', () => {
   it('parses a success response with two emails', () => {
