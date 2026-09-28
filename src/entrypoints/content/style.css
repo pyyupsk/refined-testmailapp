@@ -752,7 +752,6 @@
   align-content: start;
   padding: 12vh var(--space-4) 0;
   background: var(--color-scrim);
-  animation: rtm-fade var(--dur-fast) var(--ease-out);
 }
 
 .rtm-palette {
@@ -762,7 +761,6 @@
   border-radius: var(--radius-lg);
   background: var(--color-paper);
   box-shadow: 0 24px 64px oklch(22% 0.02 262 / 0.22);
-  animation: rtm-pop var(--dur-fast) var(--ease-out);
 }
 
 .rtm-palette-input {
@@ -827,7 +825,9 @@
   font-size: var(--text-sm);
   white-space: nowrap;
   pointer-events: auto;
-  animation: rtm-rise var(--dur-base) var(--ease-out);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
 }
 
 .rtm-toast-action {
@@ -845,21 +845,8 @@
   padding-right: var(--space-4);
 }
 
-@keyframes rtm-fade {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes rtm-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.98) translateY(-4px);
-  }
-}
-
-@keyframes rtm-rise {
-  from {
+@starting-style {
+  .rtm-toast {
     opacity: 0;
     transform: translateY(8px);
   }
@@ -926,12 +913,28 @@
   }
 }
 
+/* Reduced motion: no movement, but keep a short fade so state changes still read. */
 @media (prefers-reduced-motion: reduce) {
-  .rtm-root *,
-  .rtm-root *::before,
-  .rtm-root *::after {
-    animation-duration: 1ms !important;
-    transition-duration: 1ms !important;
+  .rtm-meta.rtm-meta {
+    transform: none;
+    opacity: 0;
+    transition:
+      opacity 150ms var(--ease-out),
+      visibility 0s linear 150ms;
+  }
+
+  .rtm-reader.is-meta-open .rtm-meta {
+    opacity: 1;
+    transition: opacity 150ms var(--ease-out);
+  }
+
+  .rtm-toast.rtm-toast {
+    transform: none;
+    transition: opacity 150ms var(--ease-out);
+  }
+
+  .rtm-j-arrow.rtm-j-arrow {
+    transition: none;
   }
 }
 

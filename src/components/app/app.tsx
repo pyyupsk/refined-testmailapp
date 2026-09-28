@@ -422,11 +422,11 @@ export function App(props: AppProps) {
       </div>
 
       <div class="rtm-toasts" aria-live="polite">
-        <Show when={toast()} keyed>
+        <Show when={toast()}>
           {(t) => (
             <div class="rtm-toast">
-              <span>{t.message}</span>
-              <Show when={t.action}>
+              <span>{t().message}</span>
+              <Show when={t().action}>
                 {(action) => (
                   <button
                     type="button"
