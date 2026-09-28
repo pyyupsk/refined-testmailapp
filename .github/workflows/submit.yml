@@ -20,6 +20,8 @@ concurrency:
 
 jobs:
   submit:
+    # v0.1.0 was submitted to both stores by hand; its tag only creates the release.
+    if: github.event_name == 'workflow_dispatch' || github.ref_name != 'v0.1.0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
