@@ -19,6 +19,6 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run zip:chrome
       - run: bun run zip:firefox
-      - run: bunx changelogithub --assets ".output/*-chrome.zip" ".output/*-firefox.zip"
+      - run: bunx changelogithub --assets ".output/*-chrome.zip,.output/*-firefox.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
