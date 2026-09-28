@@ -2,7 +2,7 @@ import { render } from 'solid-js/web';
 
 import type { ParsedResult } from '@/lib/types';
 
-import { App } from './App';
+import { App } from './app';
 
 export function mountApp(
   container: HTMLElement,

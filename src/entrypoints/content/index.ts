@@ -1,4 +1,4 @@
-import { mountApp } from '@/components/mount';
+import { mountApp } from '@/components/app/mount';
 import { parseTestmailResponse } from '@/lib/parse';
 
 import './style.css';

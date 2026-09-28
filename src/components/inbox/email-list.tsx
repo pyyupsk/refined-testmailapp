@@ -1,16 +1,8 @@
 import { createEffect, For, Show } from 'solid-js';
 
-import { authStatus, emailTime, relativeTime, senderName, snippet } from '@/lib/format';
+import { AuthChip } from '@/components/ui/auth-chip';
+import { emailTime, relativeTime, senderName, snippet } from '@/lib/format';
 import type { TestmailEmail } from '@/lib/types';
-
-export function AuthChip(props: { label: string; value: string | undefined }) {
-  const status = () => authStatus(props.value);
-  return (
-    <span class={`rtm-auth rtm-auth-${status()}`}>
-      {props.label} {status() === 'none' ? '—' : (props.value ?? '').toLowerCase()}
-    </span>
-  );
-}
 
 interface EmailListProps {
   emails: TestmailEmail[];

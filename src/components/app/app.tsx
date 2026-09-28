@@ -1,15 +1,15 @@
 import { createMemo, createSignal, For, onCleanup, onMount, Show } from 'solid-js';
 
+import { CommandBar } from '@/components/command/command-bar';
+import { EmailList } from '@/components/inbox/email-list';
+import { Reader, type Tab } from '@/components/reader/reader';
+import { Icon } from '@/components/ui/icon';
+import { Kbd } from '@/components/ui/kbd';
 import { type CommandId, keyToCommand } from '@/lib/commands';
 import { copyTarget, matchesQuery, recipientAddress } from '@/lib/format';
 import { renderJsonView } from '@/lib/json-view';
 import { fetchMore } from '@/lib/paginate';
 import type { ParsedResult, TestmailEmail } from '@/lib/types';
-
-import { CommandBar } from './CommandBar';
-import { EmailList } from './EmailList';
-import { Icon, Kbd } from './Icon';
-import { Reader, type Tab } from './Reader';
 
 type Folder = 'inbox' | 'done';
 

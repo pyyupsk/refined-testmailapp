@@ -1,8 +1,7 @@
 import { createEffect, createMemo, createSignal, For, onMount, Show } from 'solid-js';
 
+import { Kbd } from '@/components/ui/kbd';
 import { type CommandId, filterCommands } from '@/lib/commands';
-
-import { Kbd } from './Icon';
 
 interface CommandBarProps {
   onRun: (id: CommandId) => void;

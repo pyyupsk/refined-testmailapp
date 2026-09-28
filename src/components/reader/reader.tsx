@@ -1,21 +1,16 @@
-import { createMemo, For, onCleanup, onMount, Show } from 'solid-js';
+import { For, Show } from 'solid-js';
 
+import { AuthChip } from '@/components/ui/auth-chip';
+import { Icon } from '@/components/ui/icon';
 import type { CommandId } from '@/lib/commands';
-import { buildEmailSrcdoc } from '@/lib/email-html';
-import {
-  emailTime,
-  recipientAddress,
-  relativeTime,
-  senderAddress,
-  senderName,
-  splitSignature,
-} from '@/lib/format';
+import { emailTime, recipientAddress, relativeTime, senderAddress, senderName } from '@/lib/format';
 import { renderJsonView } from '@/lib/json-view';
-import { sanitizeEmailHtml } from '@/lib/sanitize';
 import type { TestmailEmail } from '@/lib/types';
 
-import { AuthChip } from './EmailList';
-import { Icon, type IconName } from './Icon';
+import { ActionButton } from './action-button';
+import { HtmlBody } from './html-body';
+import { MetaDrawer } from './meta-drawer';
+import { PlainBody } from './plain-body';
 
 export type Tab = 'html' | 'text' | 'raw';
 
@@ -37,126 +32,6 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'raw', label: 'Raw source' },
 ];
 
-function HtmlBody(props: { html: string }) {
-  let frame: HTMLIFrameElement | undefined;
-  const fit = () => {
-    const scroller = frame?.closest('.rtm-reader-scroll');
-    if (frame && scroller) frame.style.height = `${Math.max(420, scroller.clientHeight - 32)}px`;
-  };
-  onMount(() => {
-    requestAnimationFrame(fit);
-    window.addEventListener('resize', fit);
-  });
-  onCleanup(() => window.removeEventListener('resize', fit));
-
-  return (
-    <div class="rtm-frame">
-      <iframe
-        ref={(el) => (frame = el)}
-        sandbox=""
-        referrerPolicy="no-referrer"
-        title="Email body"
-        srcdoc={buildEmailSrcdoc(sanitizeEmailHtml(props.html))}
-      />
-      <p class="rtm-frame-note">Sanitized and sandboxed · no scripts, forms, or remote images</p>
-    </div>
-  );
-}
-
-function PlainBody(props: { text: string }) {
-  const parts = createMemo(() => splitSignature(props.text));
-  return (
-    <div class="rtm-plain">
-      <pre class="rtm-plain-body">{parts().body}</pre>
-      <Show when={parts().signature}>
-        <pre class="rtm-plain-sig">{parts().signature}</pre>
-      </Show>
-    </div>
-  );
-}
-
-function MetaDrawer(props: {
-  email: TestmailEmail;
-  onClose: () => void;
-  onCopy: (value: string, label: string) => void;
-}) {
-  const rows = createMemo(() => {
-    const e = props.email;
-    const ts = emailTime(e);
-    return [
-      ['From', `${senderName(e)} <${senderAddress(e)}>`, true],
-      ['To', recipientAddress(e), true],
-      ['Envelope from', e.envelope_from, true],
-      ['Envelope to', e.envelope_to, true],
-      ['Date', ts ? new Date(ts).toISOString() : undefined, true],
-      ['Message-ID', e.messageId, true],
-      ['SPF', e.SPF, false],
-      ['DKIM', e.dkim, false],
-      ['Sender IP', e.sender_ip, true],
-      ['Tag', e.tag, true],
-      ['Namespace', e.namespace, true],
-      ['ID', e.id, true],
-      ...(typeof e.spam_score === 'number'
-        ? [['Spam score', String(e.spam_score), false] as const]
-        : []),
-    ] as const;
-  });
-
-  return (
-    <aside class="rtm-meta">
-      <div class="rtm-meta-head">
-        <h3>Technical metadata</h3>
-        <button
-          type="button"
-          class="rtm-icon-btn"
-          aria-label="Close metadata"
-          onClick={props.onClose}
-        >
-          <Icon name="close" />
-        </button>
-      </div>
-      <dl>
-        <For each={rows()}>
-          {([label, value, copyable]) => {
-            const shown = value && value.trim() ? value : '—';
-            return (
-              <div class="rtm-meta-row">
-                <dt>{label}</dt>
-                <dd>{shown}</dd>
-                <Show when={copyable && shown !== '—'}>
-                  <button
-                    type="button"
-                    class="rtm-icon-btn"
-                    title={`Copy ${label}`}
-                    aria-label={`Copy ${label}`}
-                    onClick={() => props.onCopy(shown, label)}
-                  >
-                    <Icon name="copy" />
-                  </button>
-                </Show>
-              </div>
-            );
-          }}
-        </For>
-      </dl>
-    </aside>
-  );
-}
-
-function Action(props: { label: string; icon: IconName; keys: string; onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      class="rtm-btn rtm-btn-ghost"
-      title={`${props.label} (${props.keys})`}
-      onClick={props.onClick}
-    >
-      <Icon name={props.icon} />
-      <span>{props.label}</span>
-    </button>
-  );
-}
-
 export function Reader(props: ReaderProps) {
   const ts = () => emailTime(props.email);
   const has = (tab: Tab) =>
@@ -174,20 +49,20 @@ export function Reader(props: ReaderProps) {
           <span>Inbox</span>
         </button>
         <div class="rtm-toolbar-actions">
-          <Action
+          <ActionButton
             label={props.isDone ? 'Move to inbox' : 'Done'}
             icon="check"
             keys="E"
             onClick={() => props.onCommand('toggle-done')}
           />
-          <Action
+          <ActionButton
             label={props.isRead ? 'Unread' : 'Read'}
             icon="mail"
             keys="U"
             onClick={() => props.onCommand('toggle-read')}
           />
-          <Action label="Copy" icon="copy" keys="C" onClick={() => props.onCommand('copy')} />
-          <Action
+          <ActionButton label="Copy" icon="copy" keys="C" onClick={() => props.onCommand('copy')} />
+          <ActionButton
             label="Info"
             icon="info"
             keys="I"
