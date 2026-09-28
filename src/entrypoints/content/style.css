@@ -271,6 +271,11 @@
   font: var(--text-md) / 1 var(--font-sans);
 }
 
+.rtm-search-input:focus-visible,
+.rtm-palette-input:focus-visible {
+  outline: none;
+}
+
 .rtm-search-input::placeholder {
   color: var(--color-ink-3);
 }
@@ -280,6 +285,8 @@
 }
 
 .rtm-header-actions {
+  grid-column: -2 / -1;
+  justify-self: end;
   display: flex;
   align-items: center;
   gap: var(--space-1);
