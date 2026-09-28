@@ -47,6 +47,21 @@ export function App(props: AppProps) {
   const [loading, setLoading] = createSignal(false);
   const [toast, setToast] = createSignal<Toast | null>(null);
 
+  let rootEl: HTMLDivElement | undefined;
+  let returnFocus: HTMLElement | null = null;
+
+  function openPalette() {
+    const active = (rootEl?.getRootNode() as ShadowRoot | undefined)?.activeElement;
+    returnFocus = active instanceof HTMLElement ? active : null;
+    setPaletteOpen(true);
+  }
+
+  function closePalette() {
+    setPaletteOpen(false);
+    returnFocus?.focus();
+    returnFocus = null;
+  }
+
   const keys = new WeakMap<TestmailEmail, string>();
   const keyOf = (e: TestmailEmail) => {
     let k = keys.get(e);
@@ -200,8 +215,7 @@ export function App(props: AppProps) {
         searchInput?.select();
         return;
       case 'palette':
-        setPaletteOpen(true);
-        return;
+        return openPalette();
       case 'tab-html':
         return setTab('html');
       case 'tab-text':
@@ -271,7 +285,7 @@ export function App(props: AppProps) {
   rawView.classList.add('rtm-rawpage');
 
   return (
-    <div class="rtm-root" data-view={view()}>
+    <div ref={(el) => (rootEl = el)} class="rtm-root" data-view={view()}>
       <header class="rtm-header">
         <div class="rtm-brand">
           <span class="rtm-brand-mark">
@@ -288,7 +302,9 @@ export function App(props: AppProps) {
             ref={(el) => (searchInput = el)}
             type="search"
             class="rtm-search-input"
-            placeholder="Search sender, subject, text"
+            name="q"
+            autocomplete="off"
+            placeholder="Search sender, subject, text…"
             aria-label="Search emails"
             spellcheck={false}
             value={query()}
@@ -309,7 +325,7 @@ export function App(props: AppProps) {
           >
             {result().emails.length} / {result().count}
           </span>
-          <button type="button" class="rtm-btn rtm-btn-ghost" onClick={() => setPaletteOpen(true)}>
+          <button type="button" class="rtm-btn rtm-btn-ghost" onClick={openPalette}>
             <span>Commands</span>
             <Kbd keys={isMac ? '⌘ K' : 'Ctrl K'} />
           </button>
@@ -430,7 +446,7 @@ export function App(props: AppProps) {
       </div>
 
       <Show when={paletteOpen()}>
-        <CommandBar onRun={run} onClose={() => setPaletteOpen(false)} />
+        <CommandBar onRun={run} onClose={closePalette} />
       </Show>
     </div>
   );

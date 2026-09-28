@@ -39,6 +39,9 @@ export function CommandBar(props: CommandBarProps) {
     } else if (e.key === 'Escape') {
       e.preventDefault();
       props.onClose();
+    } else if (e.key === 'Tab') {
+      // The input is the only focusable element in this modal.
+      e.preventDefault();
     }
     e.stopPropagation();
   };
@@ -55,8 +58,13 @@ export function CommandBar(props: CommandBarProps) {
           ref={(el) => (input = el)}
           type="text"
           class="rtm-palette-input"
-          placeholder="Type a command"
+          placeholder="Type a command…"
           aria-label="Command"
+          role="combobox"
+          aria-expanded="true"
+          aria-controls="rtm-palette-list"
+          aria-activedescendant={commands()[active()] ? `rtm-cmd-${active()}` : undefined}
+          autocomplete="off"
           spellcheck={false}
           value={query()}
           onInput={(e) => {
@@ -65,7 +73,12 @@ export function CommandBar(props: CommandBarProps) {
           }}
           onKeyDown={handleKeyDown}
         />
-        <div ref={(el) => (list = el)} class="rtm-palette-list" role="listbox">
+        <div
+          ref={(el) => (list = el)}
+          id="rtm-palette-list"
+          class="rtm-palette-list"
+          role="listbox"
+        >
           <Show
             when={commands().length > 0}
             fallback={<p class="rtm-palette-empty">No matching command</p>}
@@ -73,6 +86,7 @@ export function CommandBar(props: CommandBarProps) {
             <For each={commands()}>
               {(c, i) => (
                 <div
+                  id={`rtm-cmd-${i()}`}
                   class="rtm-palette-item"
                   classList={{ 'is-active': i() === active() }}
                   role="option"

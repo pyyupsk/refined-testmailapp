@@ -14,7 +14,7 @@ interface EmailListProps {
 }
 
 export function EmailList(props: EmailListProps) {
-  let listRef: HTMLDivElement | undefined;
+  let listRef: HTMLUListElement | undefined;
 
   createEffect(() => {
     const key = props.selected;
@@ -23,47 +23,49 @@ export function EmailList(props: EmailListProps) {
   });
 
   return (
-    <div ref={(el) => (listRef = el)} class="rtm-list" role="listbox" aria-label="Emails">
-      <Show
-        when={props.emails.length > 0}
-        fallback={<p class="rtm-list-empty">{props.emptyText}</p>}
-      >
+    <Show
+      when={props.emails.length > 0}
+      fallback={<p class="rtm-list rtm-list-empty">{props.emptyText}</p>}
+    >
+      <ul ref={(el) => (listRef = el)} class="rtm-list" aria-label="Emails">
         <For each={props.emails}>
           {(email) => {
             const key = props.keyOf(email);
             const ts = emailTime(email);
             return (
-              <div
-                class="rtm-row"
-                classList={{
-                  'is-unread': !props.isRead(key),
-                  'is-selected': props.selected === key,
-                }}
-                data-key={key}
-                role="option"
-                aria-selected={props.selected === key}
-                onClick={() => props.onSelect(key)}
-              >
-                <div class="rtm-row-top">
-                  <span class="rtm-unread-dot" />
-                  <span class="rtm-row-from">{senderName(email)}</span>
-                  <time class="rtm-row-time" title={ts ? new Date(ts).toLocaleString() : ''}>
-                    {ts ? relativeTime(ts, Date.now()) : ''}
-                  </time>
-                </div>
-                <div class="rtm-row-subject">{email.subject || '(no subject)'}</div>
-                <div class="rtm-row-snippet">{snippet(email)}</div>
-                <div class="rtm-row-chips">
-                  <Show when={email.tag}>
-                    <span class="rtm-tag">{email.tag}</span>
-                  </Show>
-                  <AuthChip label="SPF" value={email.SPF} />
-                </div>
-              </div>
+              <li>
+                <button
+                  type="button"
+                  class="rtm-row"
+                  classList={{
+                    'is-unread': !props.isRead(key),
+                    'is-selected': props.selected === key,
+                  }}
+                  data-key={key}
+                  aria-current={props.selected === key ? 'true' : undefined}
+                  onClick={() => props.onSelect(key)}
+                >
+                  <span class="rtm-row-top">
+                    <span class="rtm-unread-dot" />
+                    <span class="rtm-row-from">{senderName(email)}</span>
+                    <time class="rtm-row-time" title={ts ? new Date(ts).toLocaleString() : ''}>
+                      {ts ? relativeTime(ts, Date.now()) : ''}
+                    </time>
+                  </span>
+                  <span class="rtm-row-subject">{email.subject || '(no subject)'}</span>
+                  <span class="rtm-row-snippet">{snippet(email)}</span>
+                  <span class="rtm-row-chips">
+                    <Show when={email.tag}>
+                      <span class="rtm-tag">{email.tag}</span>
+                    </Show>
+                    <AuthChip label="SPF" value={email.SPF} />
+                  </span>
+                </button>
+              </li>
             );
           }}
         </For>
-      </Show>
-    </div>
+      </ul>
+    </Show>
   );
 }

@@ -34,7 +34,7 @@ export function MetaDrawer(props: {
   return (
     <aside class="rtm-meta">
       <div class="rtm-meta-head">
-        <h3>Technical metadata</h3>
+        <h2>Technical metadata</h2>
         <button
           type="button"
           class="rtm-icon-btn"

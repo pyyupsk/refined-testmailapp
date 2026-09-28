@@ -80,6 +80,10 @@
   display: none !important;
 }
 
+.rtm-root :is(button, a, input, [role='tab']) {
+  touch-action: manipulation;
+}
+
 .rtm-root :focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
@@ -293,6 +297,7 @@
 }
 
 .rtm-count {
+  font-variant-numeric: tabular-nums;
   margin-right: var(--space-2);
   color: var(--color-ink-3);
   font: var(--text-xs) / 1 var(--font-mono);
@@ -341,6 +346,8 @@
 }
 
 .rtm-list {
+  margin: 0;
+  padding: 0;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -354,14 +361,29 @@
   text-align: center;
 }
 
+.rtm-list li {
+  list-style: none;
+}
+
 .rtm-row {
   position: relative;
   display: grid;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   gap: 2px;
   padding: var(--space-3) var(--space-4) var(--space-3) var(--space-6);
   border-bottom: 1px solid var(--color-line);
   cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.rtm-row:focus-visible {
+  outline-offset: -2px;
 }
 
 .rtm-row:hover {
@@ -412,6 +434,7 @@
 
 .rtm-row-time {
   flex: none;
+  font-variant-numeric: tabular-nums;
   color: var(--color-ink-3);
   font: var(--text-xs) / 1 var(--font-mono);
 }
@@ -531,6 +554,7 @@
   line-height: 1.25;
   letter-spacing: -0.015em;
   overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .rtm-from {
@@ -640,6 +664,7 @@
   z-index: 2;
   width: min(360px, 100%);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: var(--space-4) var(--space-5) var(--space-6);
   border-left: 1px solid var(--color-line);
   background: var(--color-paper);
@@ -664,7 +689,7 @@
   margin-bottom: var(--space-3);
 }
 
-.rtm-meta-head h3 {
+.rtm-meta-head h2 {
   margin: 0;
   font-size: var(--text-md);
   font-weight: 600;
@@ -755,6 +780,7 @@
 .rtm-palette-list {
   max-height: min(360px, 50vh);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: var(--space-1);
 }
 
@@ -865,6 +891,7 @@
   .rtm-search .rtm-kbd-group,
   .rtm-btn-ghost .rtm-kbd-group,
   .rtm-count.rtm-count {
+    font-variant-numeric: tabular-nums;
     display: none;
   }
 

@@ -76,6 +76,7 @@ export function Reader(props: ReaderProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Download original .eml"
+                aria-label="Download original .eml"
               >
                 <Icon name="download" />
                 <span>.eml</span>
@@ -115,6 +116,8 @@ export function Reader(props: ReaderProps) {
                 type="button"
                 class="rtm-tab"
                 role="tab"
+                id={`rtm-tab-${t.id}`}
+                aria-controls="rtm-tabpanel"
                 aria-selected={props.tab === t.id}
                 disabled={!has(t.id)}
                 onClick={() => props.onTab(t.id)}
@@ -125,19 +128,21 @@ export function Reader(props: ReaderProps) {
           </For>
         </div>
 
-        <Show when={props.tab === 'html'}>
-          <Show when={props.email.html} fallback={<p class="rtm-muted">No HTML part.</p>}>
-            {(html) => <HtmlBody html={html()} />}
+        <div id="rtm-tabpanel" role="tabpanel" aria-labelledby={`rtm-tab-${props.tab}`}>
+          <Show when={props.tab === 'html'}>
+            <Show when={props.email.html} fallback={<p class="rtm-muted">No HTML part.</p>}>
+              {(html) => <HtmlBody html={html()} />}
+            </Show>
           </Show>
-        </Show>
-        <Show when={props.tab === 'text'}>
-          <Show when={props.email.text} fallback={<p class="rtm-muted">No plain-text part.</p>}>
-            {(text) => <PlainBody text={text()} />}
+          <Show when={props.tab === 'text'}>
+            <Show when={props.email.text} fallback={<p class="rtm-muted">No plain-text part.</p>}>
+              {(text) => <PlainBody text={text()} />}
+            </Show>
           </Show>
-        </Show>
-        <Show when={props.tab === 'raw'}>
-          {renderJsonView(props.email, JSON.stringify(props.email, null, 2))}
-        </Show>
+          <Show when={props.tab === 'raw'}>
+            {renderJsonView(props.email, JSON.stringify(props.email, null, 2))}
+          </Show>
+        </div>
       </div>
 
       <MetaDrawer

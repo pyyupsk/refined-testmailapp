@@ -11,6 +11,8 @@ export function ActionButton(props: {
       type="button"
       class="rtm-btn rtm-btn-ghost"
       title={`${props.label} (${props.keys})`}
+      aria-label={props.label}
+      aria-keyshortcuts={props.keys}
       onClick={props.onClick}
     >
       <Icon name={props.icon} />
