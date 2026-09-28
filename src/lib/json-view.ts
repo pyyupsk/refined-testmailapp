@@ -97,7 +97,9 @@ export function renderJsonView(data: unknown, raw: string): HTMLElement {
   });
 
   return el('div', { className: 'rtm-json' }, [
-    el('div', { className: 'rtm-j-toolbar' }, [copyBtn]),
-    el('div', { className: 'rtm-j-tree' }, [renderValue(data, 0)]),
+    el('div', { className: 'rtm-j-box' }, [
+      el('div', { className: 'rtm-j-tree' }, [renderValue(data, 0)]),
+      el('div', { className: 'rtm-j-toolbar' }, [copyBtn]),
+    ]),
   ]);
 }
