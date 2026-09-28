@@ -1,5 +1,5 @@
-import { parseTestmailResponse } from '../../lib/parse';
-import { renderApp } from '../../lib/render';
+import { parseTestmailResponse } from '@/lib/parse';
+import { renderApp } from '@/lib/render';
 import './style.css';
 
 function readRawJsonText(): string | null {

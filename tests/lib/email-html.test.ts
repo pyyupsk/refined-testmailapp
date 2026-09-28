@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildEmailSrcdoc } from '../../src/lib/email-html';
+import { buildEmailSrcdoc } from '@/lib/email-html';
 
 describe('buildEmailSrcdoc', () => {
   it('prepends a CSP meta tag that blocks remote resources and form submission', () => {
