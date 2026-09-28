@@ -297,10 +297,10 @@
 }
 
 .rtm-count {
-  font-variant-numeric: tabular-nums;
   margin-right: var(--space-2);
   color: var(--color-ink-3);
   font: var(--text-xs) / 1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
@@ -434,9 +434,9 @@
 
 .rtm-row-time {
   flex: none;
-  font-variant-numeric: tabular-nums;
   color: var(--color-ink-3);
   font: var(--text-xs) / 1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .rtm-row-subject {
@@ -878,7 +878,6 @@
   .rtm-search .rtm-kbd-group,
   .rtm-btn-ghost .rtm-kbd-group,
   .rtm-count.rtm-count {
-    font-variant-numeric: tabular-nums;
     display: none;
   }
 
