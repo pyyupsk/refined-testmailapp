@@ -20,7 +20,12 @@
     "zip:chrome": "wxt zip -b chrome --mv3",
     "zip:firefox": "wxt zip -b firefox --mv3"
   },
+  "dependencies": {
+    "lucide-solid": "^1.48.0",
+    "solid-js": "^1.9.15"
+  },
   "devDependencies": {
+    "@wxt-dev/module-solid": "^1.1.4",
     "jsdom": "^30.1.1",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",

@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://json.schemastore.org/dependabot-2.0.json
+version: 2
+updates:
+  # Bun is not listed: Dependabot cannot parse bun.lock lockfileVersion 2
+  # (written by Bun 1.4) yet. Add a "bun" entry when it can.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci

@@ -1,5 +1,5 @@
+import { mountApp } from '@/components/app/mount';
 import { parseTestmailResponse } from '@/lib/parse';
-import { renderApp } from '@/lib/render';
 
 import './style.css';
 
@@ -44,12 +44,22 @@ export default defineContentScript({
         name: 'refined-testmailapp',
         position: 'inline',
         anchor: 'body',
-        onMount: (container) => container.append(renderApp(parsed, raw, data)),
+        onMount: (container) => mountApp(container, parsed, raw, data),
+        onRemove: (dispose) => dispose?.(),
       });
       ui.mount();
 
       const pre = document.querySelector('pre');
       if (pre) pre.style.display = 'none';
+
+      // Without this, mobile browsers lay the JSON page out at ~980px and the
+      // stacked layout never applies.
+      if (!document.querySelector('meta[name="viewport"]')) {
+        const viewport = document.createElement('meta');
+        viewport.name = 'viewport';
+        viewport.content = 'width=device-width, initial-scale=1';
+        document.head.append(viewport);
+      }
 
       // The native page can keep a dark background under our content, so we
       // reset it here.
