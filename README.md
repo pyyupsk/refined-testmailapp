@@ -1,6 +1,8 @@
 # Refined testmail.app
 
 [![Version](https://img.shields.io/github/v/release/pyyupsk/refined-testmailapp?color=a1b858&label=)](https://github.com/pyyupsk/refined-testmailapp/releases)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jgnnjkddobpnplpahhcofmlcancheboi?label=Chrome)](https://chromewebstore.google.com/detail/jgnnjkddobpnplpahhcofmlcancheboi)
+[![Firefox Add-ons](https://img.shields.io/amo/v/refined-testmail-app?label=Firefox)](https://addons.mozilla.org/firefox/addon/refined-testmail-app/)
 
 Render the [testmail.app](https://testmail.app) JSON API as an inbox, right in your browser. Built with [WXT](https://wxt.dev) and [Solid](https://www.solidjs.com).
 
@@ -59,10 +61,10 @@ The extension runs only on `api.testmail.app/api/json` pages. It does not store 
 
 ## Install
 
-Store listings are in review. Until they are live, install a released build:
+- [Chrome Web Store](https://chromewebstore.google.com/detail/jgnnjkddobpnplpahhcofmlcancheboi)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/refined-testmail-app/)
 
-1. Download the Chrome or Firefox zip from the [latest release](https://github.com/pyyupsk/refined-testmailapp/releases/latest).
-2. In Chrome, unzip it, open `chrome://extensions`, turn on Developer mode, and click "Load unpacked". In Firefox, open `about:debugging#/runtime/this-firefox` and load the zip as a temporary add-on.
+To install a build by hand, download the Chrome or Firefox zip from the [latest release](https://github.com/pyyupsk/refined-testmailapp/releases/latest). In Chrome, unzip it, open `chrome://extensions`, turn on Developer mode, and click "Load unpacked". In Firefox, open `about:debugging#/runtime/this-firefox` and load the zip as a temporary add-on.
 
 ### From source
 
