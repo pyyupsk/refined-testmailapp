@@ -1,6 +1,6 @@
 {
   "name": "refined-testmailapp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Renders testmail.app raw JSON API responses as a readable inbox UI.",
   "type": "module",

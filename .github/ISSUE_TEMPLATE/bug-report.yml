@@ -28,7 +28,7 @@ body:
     attributes:
       label: Extension version
       description: The version from the store or the release, or the commit hash if you built from `main`.
-      placeholder: 0.1.0
+      placeholder: 0.2.0
     validations:
       required: true
   - type: dropdown

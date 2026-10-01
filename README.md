@@ -71,7 +71,7 @@ To install a build by hand, download the Chrome or Firefox zip from the [latest 
 The `main` branch holds work that is not released yet. To build a released version, check out its tag first. You need [Bun](https://bun.sh) and Node.js 22.12 or newer.
 
 ```bash
-git checkout v0.1.0
+git checkout v0.2.0
 bun install
 bun run build:chrome   # or build:firefox
 ```
